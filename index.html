@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Monthly MSA Quote Generator</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
+        body { font-family: 'Inter', sans-serif; background-color: #fdfaf6; color: #333; }
+        
+        /* Chart Container Styling as per requirements */
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px;
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 350px;
+            }
+        }
+
+        /* Custom Input Styling */
+        .qty-input:focus {
+            outline: none;
+            border-color: #d97706; /* amber-600 */
+            box-shadow: 0 0 0 3px rgba(217, 119, 6, 0.2);
+        }
+    </style>
+</head>
+<body class="flex flex-col min-h-screen text-slate-800">
+
+    <!-- Chosen Palette: Warm Neutrals (Background: #fdfaf6) with Amber/Orange Accents (#d97706) for a professional, service-oriented feel. Slate for text. -->
+
+    <!-- Application Structure Plan: 
+         The app is designed as an interactive Dashboard Calculator. 
+         1. Header: Sets the context.
+         2. Calculator & Summary Section (Split View): The primary interaction zone. Users input quantities on the left, and see immediate financial impact (Total Cost) and distribution (Donut Chart) on the right. This allows for rapid "what-if" scenarios.
+         3. Rate Card Analysis (Secondary View): A Bar Chart comparing unit costs to help users understand which assets drive the most cost per unit, followed by a reference table.
+         This structure prioritizes the user's goal: "How much will this cost me?" while providing transparency on "Why does it cost this much?".
+    -->
+
+    <!-- Visualization & Content Choices:
+         1. Dynamic Donut Chart (Chart.js): Goal: Inform/Relationships. Shows the % breakdown of the total monthly cost by asset type. Justification: Helps users identify which asset category is consuming the budget.
+         2. Dynamic Bar Chart (Chart.js): Goal: Compare. Compares the Unit Rate of each asset. Justification: Visualizes the static rate card data to highlight expensive vs. cheap assets.
+         3. Interactive Input Table: Goal: Change. Direct manipulation of quantities. Justification: Core functionality of the quote generator.
+         4. Summary Cards: Goal: Inform. Large text display of the Grand Total. Justification: Immediate feedback on cost.
+         Confirmation: NO SVG graphics used. NO Mermaid JS used. All icons are Unicode.
+    -->
+
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+
+    <!-- Header Section -->
+    <header class="bg-white shadow-sm border-b border-stone-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex justify-between items-center">
+            <div>
+                <h1 class="text-2xl font-bold text-stone-800 tracking-tight">MSA Quote Generator</h1>
+                <p class="text-sm text-stone-500 mt-1">Interactive Monthly Cost Estimator</p>
+            </div>
+            <div class="hidden sm:block">
+                <button onclick="window.print()" class="bg-stone-100 hover:bg-stone-200 text-stone-700 px-4 py-2 rounded-lg text-sm font-medium transition-colors">
+                    🖨️ Print Quote
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full">
+
+        <!-- Intro Section -->
+        <section class="mb-10 max-w-3xl mx-auto text-center">
+            <h2 class="text-3xl font-bold text-stone-800 mb-4">Estimate Your Monthly MSA Costs</h2>
+            <p class="text-lg text-stone-600 leading-relaxed">
+                Use the interactive tool below to calculate your estimated monthly IT service fees. 
+                Enter the quantity of each device or server type in your inventory. The totals and cost breakdown charts will update automatically as you type.
+            </p>
+        </section>
+
+        <!-- Main Calculator Section -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-16">
+            
+            <!-- Left Column: Inputs -->
+            <div class="lg:col-span-7 bg-white rounded-2xl shadow-lg border border-stone-100 overflow-hidden">
+                <div class="p-6 bg-stone-50 border-b border-stone-100 flex justify-between items-center">
+                    <h3 class="text-lg font-semibold text-stone-700">Inventory Configuration</h3>
+                    <span class="text-xs font-medium bg-amber-100 text-amber-800 px-2 py-1 rounded-full">Editable</span>
+                </div>
+                <div class="p-6">
+                    <p class="text-sm text-stone-500 mb-6">Enter the number of units for each asset type below.</p>
+                    
+                    <div id="input-container" class="space-y-4">
+                        <!-- JS will populate rows here -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Column: Live Summary -->
+            <div class="lg:col-span-5 space-y-8">
+                
+                <!-- Grand Total Card -->
+                <div class="bg-gradient-to-br from-stone-800 to-stone-900 rounded-2xl shadow-xl p-8 text-white relative overflow-hidden">
+                    <div class="relative z-10">
+                        <h3 class="text-stone-300 text-sm font-medium uppercase tracking-wider mb-2">Estimated Monthly Total</h3>
+                        <div class="flex items-baseline">
+                            <span class="text-2xl font-light text-stone-400 mr-2">CA$</span>
+                            <span id="grand-total-display" class="text-5xl font-bold tracking-tight">0.00</span>
+                        </div>
+                        <p class="text-stone-400 text-sm mt-4 border-t border-stone-700 pt-4">
+                            Based on <span id="total-items-display" class="font-semibold text-white">0</span> total assets.
+                        </p>
+                    </div>
+                    <!-- Decor element -->
+                    <div class="absolute top-0 right-0 -mr-16 -mt-16 w-48 h-48 bg-white opacity-5 rounded-full blur-3xl"></div>
+                </div>
+
+                <!-- Cost Breakdown Chart -->
+                <div class="bg-white rounded-2xl shadow-lg border border-stone-100 p-6">
+                    <h3 class="text-lg font-semibold text-stone-700 mb-2">Cost Distribution</h3>
+                    <p class="text-sm text-stone-500 mb-6">See which asset types contribute most to your monthly bill.</p>
+                    
+                    <div class="chart-container">
+                        <canvas id="costBreakdownChart"></canvas>
+                    </div>
+                    <div id="chart-legend" class="mt-4 flex flex-wrap gap-2 justify-center text-xs text-stone-500">
+                        <!-- Dynamic legend or empty if chart handles it -->
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Analysis Section -->
+        <section class="bg-white rounded-2xl shadow-sm border border-stone-200 p-8 mb-12">
+            <div class="mb-8">
+                <h2 class="text-2xl font-bold text-stone-800 mb-2">Rate Card Analysis</h2>
+                <p class="text-stone-600">
+                    Understanding the base rates helps in strategic planning. The chart below compares the monthly unit cost across all asset types, highlighting the premium for critical infrastructure versus standard devices.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+                <!-- Unit Price Chart -->
+                <div class="flex flex-col">
+                    <h4 class="font-semibold text-stone-700 mb-4 text-center">Monthly Rate Per Unit (CA$)</h4>
+                    <div class="chart-container">
+                        <canvas id="rateComparisonChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- Reference Table -->
+                <div class="flex flex-col justify-center">
+                    <div class="overflow-x-auto">
+                        <table class="min-w-full text-sm text-left">
+                            <thead class="bg-stone-50 text-stone-500 font-medium border-b border-stone-200">
+                                <tr>
+                                    <th class="px-4 py-3">Asset Type</th>
+                                    <th class="px-4 py-3 text-right">Unit Rate (CA$)</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-stone-100 text-stone-700" id="rate-table-body">
+                                <!-- JS Populated -->
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="mt-4 bg-amber-50 border border-amber-100 rounded-lg p-4">
+                        <h5 class="text-amber-800 font-semibold text-sm mb-1">💡 Optimization Tip</h5>
+                        <p class="text-amber-700 text-xs">
+                            "Critical" devices and servers carry a premium due to higher service level requirements. Ensure you only classify truly essential hardware as "Critical" to optimize costs.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-stone-100 border-t border-stone-200 mt-auto">
+        <div class="max-w-7xl mx-auto px-4 py-6 text-center text-stone-500 text-sm">
+            <p>&copy; 2026 MSA Quote Generator. All rates are in Canadian Dollars (CA$).</p>
+        </div>
+    </footer>
+
+    <script>
+        // --- Data Model ---
+        // Source data from the provided rate card
+        const rateData = [
+            { id: 'workstation', name: 'Workstation', rate: 55, qty: 0, icon: '💻' },
+            { id: 'small_device', name: 'Small Device', rate: 15, qty: 0, icon: '📱' },
+            { id: 'medium_device', name: 'Medium Device', rate: 35, qty: 0, icon: '📠' },
+            { id: 'large_device', name: 'Large Device', rate: 80, qty: 0, icon: '🖥️' },
+            { id: 'critical_device', name: 'Critical Device', rate: 90, qty: 0, icon: '🚨' },
+            { id: 'server_hw', name: 'Server Hardware', rate: 130, qty: 0, icon: '🗄️' },
+            { id: 'server_sw', name: 'Server Software', rate: 130, qty: 0, icon: '💿' },
+            { id: 'crit_server_hw', name: 'Critical Server Hardware', rate: 175, qty: 0, icon: '🏗️' },
+            { id: 'crit_server_sw', name: 'Critical Server Software', rate: 175, qty: 0, icon: '💾' }
+        ];
+
+        // --- DOM Elements ---
+        const inputContainer = document.getElementById('input-container');
+        const rateTableBody = document.getElementById('rate-table-body');
+        const grandTotalDisplay = document.getElementById('grand-total-display');
+        const totalItemsDisplay = document.getElementById('total-items-display');
+
+        // --- Chart Variables ---
+        let costBreakdownChart = null;
+        let rateComparisonChart = null;
+
+        // --- Initialization ---
+        document.addEventListener('DOMContentLoaded', () => {
+            initUI();
+            initCharts();
+            updateCalculations();
+        });
+
+        // --- UI Generation Functions ---
+        function initUI() {
+            // Generate Input Rows
+            rateData.forEach((item, index) => {
+                // Input Row
+                const row = document.createElement('div');
+                row.className = 'flex items-center justify-between p-3 rounded-lg hover:bg-stone-50 transition-colors border border-transparent hover:border-stone-200';
+                row.innerHTML = `
+                    <div class="flex items-center space-x-3 flex-1">
+                        <span class="text-2xl" role="img" aria-label="${item.name}">${item.icon}</span>
+                        <div>
+                            <p class="font-medium text-stone-800">${item.name}</p>
+                            <p class="text-xs text-stone-500">Rate: CA$${item.rate}/mo</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center space-x-4">
+                        <div class="text-right hidden sm:block w-24">
+                            <span class="text-xs text-stone-400 block">Subtotal</span>
+                            <span class="font-semibold text-stone-700" id="subtotal-${index}">CA$0.00</span>
+                        </div>
+                        <input type="number" min="0" value="0" data-index="${index}" 
+                            class="qty-input w-20 p-2 text-right border border-stone-300 rounded-lg text-stone-800 font-semibold bg-white shadow-sm"
+                            onchange="handleInputChange(this)" oninput="handleInputChange(this)">
+                    </div>
+                `;
+                inputContainer.appendChild(row);
+
+                // Reference Table Row
+                const tableRow = document.createElement('tr');
+                tableRow.innerHTML = `
+                    <td class="px-4 py-2 border-b border-stone-50">${item.icon} ${item.name}</td>
+                    <td class="px-4 py-2 border-b border-stone-50 text-right font-mono text-stone-600">${item.rate}</td>
+                `;
+                rateTableBody.appendChild(tableRow);
+            });
+        }
+
+        // --- Interaction Logic ---
+        function handleInputChange(inputElement) {
+            const index = inputElement.dataset.index;
+            let val = parseInt(inputElement.value);
+            
+            // Validate input
+            if (isNaN(val) || val < 0) val = 0;
+            
+            // Update Data Model
+            rateData[index].qty = val;
+
+            // Update UI
+            updateCalculations();
+        }
+
+        function updateCalculations() {
+            let grandTotal = 0;
+            let totalItems = 0;
+            const chartLabels = [];
+            const chartData = [];
+            const chartColors = [];
+
+            // Base colors for chart
+            const colors = [
+                '#78716c', '#a8a29e', '#d6d3d1', // Stone shades
+                '#f59e0b', '#d97706', '#b45309', // Amber shades
+                '#3b82f6', '#2563eb', '#1d4ed8'  // Blue shades for servers
+            ];
+
+            rateData.forEach((item, index) => {
+                const subtotal = item.rate * item.qty;
+                grandTotal += subtotal;
+                totalItems += item.qty;
+
+                // Update row subtotal text
+                document.getElementById(`subtotal-${index}`).innerText = `CA$${subtotal.toLocaleString()}`;
+
+                // Prepare Chart Data (only include items with cost > 0)
+                if (subtotal > 0) {
+                    chartLabels.push(item.name);
+                    chartData.push(subtotal);
+                    chartColors.push(colors[index % colors.length]);
+                }
+            });
+
+            // Update Grand Total Display
+            grandTotalDisplay.innerText = grandTotal.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
+            totalItemsDisplay.innerText = totalItems;
+
+            // Update Charts
+            updateCostChart(chartLabels, chartData, chartColors);
+        }
+
+        // --- Chart Functions ---
+        function initCharts() {
+            // 1. Donut Chart (Cost Breakdown)
+            const ctxCost = document.getElementById('costBreakdownChart').getContext('2d');
+            costBreakdownChart = new Chart(ctxCost, {
+                type: 'doughnut',
+                data: {
+                    labels: [],
+                    datasets: [{
+                        data: [],
+                        backgroundColor: [],
+                        borderWidth: 0,
+                        hoverOffset: 4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                usePointStyle: true,
+                                padding: 20,
+                                font: { family: "'Inter', sans-serif", size: 11 }
+                            }
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    let label = context.label || '';
+                                    if (label) {
+                                        label += ': ';
+                                    }
+                                    if (context.parsed !== null) {
+                                        label += new Intl.NumberFormat('en-CA', { style: 'currency', currency: 'CAD' }).format(context.parsed);
+                                    }
+                                    return label;
+                                }
+                            }
+                        },
+                        title: {
+                            display: true,
+                            text: 'Monthly Cost by Asset Type',
+                            padding: { bottom: 20 },
+                            font: { family: "'Inter', sans-serif", size: 14, weight: 'normal' },
+                            color: '#78716c'
+                        }
+                    },
+                    cutout: '65%'
+                }
+            });
+
+            // 2. Bar Chart (Rate Comparison)
+            const ctxRate = document.getElementById('rateComparisonChart').getContext('2d');
+            
+            // Prepare data for static rate chart
+            const labels = rateData.map(d => d.name);
+            const data = rateData.map(d => d.rate);
+            
+            rateComparisonChart = new Chart(ctxRate, {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Monthly Rate (CA$)',
+                        data: data,
+                        backgroundColor: '#d6d3d1',
+                        hoverBackgroundColor: '#d97706',
+                        borderRadius: 4,
+                        barPercentage: 0.6
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    indexAxis: 'y', // Horizontal Bar Chart
+                    scales: {
+                        x: {
+                            grid: { display: false },
+                            ticks: { font: { family: "'Inter', sans-serif" } }
+                        },
+                        y: {
+                            grid: { display: false },
+                            ticks: { autoSkip: false, font: { family: "'Inter', sans-serif", size: 11 } }
+                        }
+                    },
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return `CA$${context.parsed.x}`;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        function updateCostChart(labels, data, colors) {
+            if (!costBreakdownChart) return;
+
+            // Update data
+            costBreakdownChart.data.labels = labels;
+            costBreakdownChart.data.datasets[0].data = data;
+            costBreakdownChart.data.datasets[0].backgroundColor = colors;
+
+            // If no data, show a placeholder or empty state text could be better, 
+            // but for now, chart.js handles empty arrays by showing nothing.
+            // We can add a "No Data" visual if needed, but let's keep it simple.
+            
+            if (data.length === 0) {
+                 costBreakdownChart.options.plugins.title.text = 'Enter quantities to see breakdown';
+            } else {
+                 costBreakdownChart.options.plugins.title.text = 'Monthly Cost by Asset Type';
+            }
+
+            costBreakdownChart.update();
+        }
+
+    </script>
+</body>
+</html>
