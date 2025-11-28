@@ -1,0 +1,30 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: #fdfaf6;
+    color: #333;
+}
+
+/* Chart Container Styling as per requirements */
+.chart-container {
+    position: relative;
+    width: 100%;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+    height: 300px;
+    max-height: 400px;
+}
+@media (min-width: 768px) {
+    .chart-container {
+        height: 350px;
+    }
+}
+
+/* Custom Input Styling */
+.qty-input:focus {
+    outline: none;
+    border-color: #d97706; /* amber-600 */
+    box-shadow: 0 0 0 3px rgba(217, 119, 6, 0.2);
+}
