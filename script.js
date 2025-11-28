@@ -13,7 +13,7 @@ const rateData = [
 
 // --- DOM Elements --- -> JS will populate those
 const inputContainer = document.getElementById('input-container');
-const rateTableBody = document.getElementById('rate-table-body');
+//const rateTableBody = document.getElementById('rate-table-body');
 const grandTotalDisplay = document.getElementById('grand-total-display');
 const totalItemsDisplay = document.getElementById('total-items-display');
 
@@ -56,13 +56,13 @@ function initUI() {
         `;
         inputContainer.appendChild(row);
 
-        // Reference Table Row
-        const tableRow = document.createElement('tr');
-        tableRow.innerHTML = `
-            <td class="px-4 py-2 border-b border-stone-50">${item.icon} ${item.name}</td>
-            <td class="px-4 py-2 border-b border-stone-50 text-right font-mono text-stone-600">${item.rate}</td>
-        `;
-        rateTableBody.appendChild(tableRow);
+        // // Reference Table Row
+        // const tableRow = document.createElement('tr');
+        // tableRow.innerHTML = `
+        //     <td class="px-4 py-2 border-b border-stone-50">${item.icon} ${item.name}</td>
+        //     <td class="px-4 py-2 border-b border-stone-50 text-right font-mono text-stone-600">${item.rate}</td>
+        // `;
+        // rateTableBody.appendChild(tableRow);
     });
 }
 
