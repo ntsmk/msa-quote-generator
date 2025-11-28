@@ -1,5 +1,4 @@
 // --- Data Model ---
-// Source data from the provided rate card
 const rateData = [
     { id: 'workstation', name: 'Workstation', rate: 55, qty: 0, icon: '💻' },
     { id: 'small_device', name: 'Small Device', rate: 15, qty: 0, icon: '📱' },
@@ -21,9 +20,6 @@ const totalItemsDisplay = document.getElementById('total-items-display');
 // --- Chart Variables ---
 let costBreakdownChart = null;
 let rateComparisonChart = null;
-
-// --- Expose function to global scope for HTML event handlers ---
-window.handleInputChange = handleInputChange;
 
 // --- Initialization ---
 document.addEventListener('DOMContentLoaded', () => {
