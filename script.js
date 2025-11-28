@@ -1,7 +1,7 @@
 // --- Data Model ---
 const rateData = [
     { id: 'workstation', name: 'Workstation', rate: 55, qty: 0, icon: '💻' },
-    { id: 'small_device', name: 'Small Device', rate: 15, qty: 0, icon: '📞' },
+    { id: 'small_device', name: 'Small Device', rate: 15, qty: 0, icon: '☎️' },
     { id: 'medium_device', name: 'Medium Device', rate: 35, qty: 0, icon: '🖨️' },
     { id: 'large_device', name: 'Large Device', rate: 80, qty: 0, icon: '🌐' },
     { id: 'server_hw', name: 'Server Hardware', rate: 130, qty: 0, icon: '🔧' },
