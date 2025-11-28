@@ -1,9 +1,9 @@
 // --- Data Model ---
 const rateData = [
-    { id: 'workstation', name: 'Workstation', rate: 55, qty: 0, icon: '💻', color: '#44403c' },
-    { id: 'small_device', name: 'Small Device', rate: 15, qty: 0, icon: '☎️', color: '#57534e' },
-    { id: 'medium_device', name: 'Medium Device', rate: 35, qty: 0, icon: '🖨️', color: '#78716c' },
-    { id: 'large_device', name: 'Large Device', rate: 80, qty: 0, icon: '🌐', color: '#a8a29e' },
+    { id: 'workstation', name: 'Workstation', rate: 55, qty: 0, icon: '💻', color: '#145a03ff' },
+    { id: 'small_device', name: 'Small Device', rate: 15, qty: 0, icon: '☎️', color: '#088527ff' },
+    { id: 'medium_device', name: 'Medium Device', rate: 35, qty: 0, icon: '🖨️', color: '#2ce745ff' },
+    { id: 'large_device', name: 'Large Device', rate: 80, qty: 0, icon: '🌐', color: '#7edf6bff' },
     { id: 'server_hw', name: 'Server Hardware', rate: 130, qty: 0, icon: '🔧', color: '#0a0063ff' },
     { id: 'server_sw', name: 'Server Software', rate: 130, qty: 0, icon: '⚙️', color: '#3744fdff' },
     { id: 'critical_device', name: 'Critical Device', rate: 90, qty: 0, icon: '🚨', color: '#ef4444' },
