@@ -45,16 +45,62 @@
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-16">
 
             <!-- Left Column: Inputs -->
-            <div class="lg:col-span-7 bg-white rounded-2xl shadow-lg border border-stone-100 overflow-hidden">
-                <div class="p-6 bg-stone-50 border-b border-stone-100 flex justify-between items-center">
-                    <h3 class="text-lg font-semibold text-stone-700">Inventory Configuration</h3>
-                    <span class="text-xs font-medium bg-amber-100 text-amber-800 px-2 py-1 rounded-full">Editable</span>
-                </div>
-                <div class="p-6">
-                    <p class="text-sm text-stone-500 mb-6">Enter the number of units for each asset type below.</p>
+            <div class="lg:col-span-7 space-y-6">
+                <!-- Inventory Configuration -->
+                <div class="bg-white rounded-2xl shadow-lg border border-stone-100 overflow-hidden">
+                    <div class="p-6 bg-stone-50 border-b border-stone-100 flex justify-between items-center">
+                        <h3 class="text-lg font-semibold text-stone-700">Inventory Configuration</h3>
+                        <span class="text-xs font-medium bg-amber-100 text-amber-800 px-2 py-1 rounded-full">Editable</span>
+                    </div>
+                    <div class="p-6">
+                        <p class="text-sm text-stone-500 mb-6">Enter the number of units for each asset type below.</p>
 
-                    <div id="input-container" class="space-y-4">
-                        <!-- JS will populate rows here -->
+                        <div id="input-container" class="space-y-4">
+                            <!-- JS will populate rows here -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Commitment Type Selection -->
+                <div class="bg-white rounded-2xl shadow-lg border border-stone-100 overflow-hidden">
+                    <div class="p-6 bg-stone-50 border-b border-stone-100">
+                        <h3 class="text-lg font-semibold text-stone-700">Commitment Period</h3>
+                        <p class="text-xs text-stone-500 mt-1">Choose a commitment period to unlock discounts</p>
+                    </div>
+                    <div class="p-6">
+                        <div class="space-y-3">
+                            <label class="flex items-center justify-between p-4 border-2 border-stone-200 rounded-lg cursor-pointer hover:border-stone-400 transition-colors">
+                                <div class="flex items-center">
+                                    <input type="radio" name="commitment" value="0" class="w-4 h-4 text-stone-800 focus:ring-stone-500" checked onchange="handleCommitmentChange()">
+                                    <span class="ml-3 font-medium text-stone-800">No Commitment</span>
+                                </div>
+                                <span class="text-sm text-stone-500">Standard pricing</span>
+                            </label>
+                            
+                            <label class="flex items-center justify-between p-4 border-2 border-stone-200 rounded-lg cursor-pointer hover:border-amber-400 transition-colors">
+                                <div class="flex items-center">
+                                    <input type="radio" name="commitment" value="5" class="w-4 h-4 text-amber-600 focus:ring-amber-500" onchange="handleCommitmentChange()">
+                                    <span class="ml-3 font-medium text-stone-800">1 Year</span>
+                                </div>
+                                <span class="text-sm font-semibold text-amber-600">5% off</span>
+                            </label>
+                            
+                            <label class="flex items-center justify-between p-4 border-2 border-stone-200 rounded-lg cursor-pointer hover:border-amber-500 transition-colors">
+                                <div class="flex items-center">
+                                    <input type="radio" name="commitment" value="10" class="w-4 h-4 text-amber-600 focus:ring-amber-500" onchange="handleCommitmentChange()">
+                                    <span class="ml-3 font-medium text-stone-800">2 Years</span>
+                                </div>
+                                <span class="text-sm font-semibold text-amber-600">10% off</span>
+                            </label>
+                            
+                            <label class="flex items-center justify-between p-4 border-2 border-stone-200 rounded-lg cursor-pointer hover:border-amber-600 transition-colors">
+                                <div class="flex items-center">
+                                    <input type="radio" name="commitment" value="15" class="w-4 h-4 text-amber-600 focus:ring-amber-500" onchange="handleCommitmentChange()">
+                                    <span class="ml-3 font-medium text-stone-800">3 Years</span>
+                                </div>
+                                <span class="text-sm font-semibold text-amber-600">15% off</span>
+                            </label>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -66,9 +112,15 @@
                 <div class="bg-gradient-to-br from-stone-800 to-stone-900 rounded-2xl shadow-xl p-8 text-white relative overflow-hidden">
                     <div class="relative z-10">
                         <h3 class="text-stone-300 text-sm font-medium uppercase tracking-wider mb-2">Estimated Monthly Total</h3>
-                        <div class="flex items-baseline">
-                            <span class="text-2xl font-light text-stone-400 mr-2">CA$</span>
-                            <span id="grand-total-display" class="text-5xl font-bold tracking-tight">0.00</span>
+                        <div class="flex flex-col items-start">
+                            <div id="original-price-container" class="hidden mb-2">
+                                <span class="text-lg text-stone-400 line-through">CA$ <span id="original-total-display">0.00</span></span>
+                                <span class="ml-2 text-xs bg-amber-500 text-white px-2 py-1 rounded-full font-semibold" id="discount-badge"></span>
+                            </div>
+                            <div class="flex items-baseline">
+                                <span class="text-2xl font-light text-stone-400 mr-2">CA$</span>
+                                <span id="grand-total-display" class="text-5xl font-bold tracking-tight">0.00</span>
+                            </div>
                         </div>
                         <p class="text-stone-400 text-sm mt-4 border-t border-stone-700 pt-4">
                             Based on <span id="total-items-display" class="font-semibold text-white">0</span> total assets.

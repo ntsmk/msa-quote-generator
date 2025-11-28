@@ -13,9 +13,14 @@ const rateData = [
 
 // --- DOM Elements --- -> JS will populate those
 const inputContainer = document.getElementById('input-container');
-//const rateTableBody = document.getElementById('rate-table-body');
 const grandTotalDisplay = document.getElementById('grand-total-display');
 const totalItemsDisplay = document.getElementById('total-items-display');
+const originalTotalDisplay = document.getElementById('original-total-display');
+const originalPriceContainer = document.getElementById('original-price-container');
+const discountBadge = document.getElementById('discount-badge');
+
+// --- State ---
+let currentDiscount = 0;
 
 // --- Chart Variables ---
 let costBreakdownChart = null;
@@ -28,7 +33,6 @@ document.addEventListener('DOMContentLoaded', () => {
     updateCalculations();
 });
 
-// What does this? ->
 // --- UI Generation Functions ---
 function initUI() {
     // Generate Input Rows
@@ -55,18 +59,9 @@ function initUI() {
             </div>
         `;
         inputContainer.appendChild(row);
-
-        // // Reference Table Row
-        // const tableRow = document.createElement('tr');
-        // tableRow.innerHTML = `
-        //     <td class="px-4 py-2 border-b border-stone-50">${item.icon} ${item.name}</td>
-        //     <td class="px-4 py-2 border-b border-stone-50 text-right font-mono text-stone-600">${item.rate}</td>
-        // `;
-        // rateTableBody.appendChild(tableRow);
     });
 }
 
-// What does this? ->
 // --- Interaction Logic ---
 function handleInputChange(inputElement) {
     const index = inputElement.dataset.index;
@@ -82,24 +77,13 @@ function handleInputChange(inputElement) {
     updateCalculations();
 }
 
-
-// Function to create color legend
-function createColorLegend() {
-    const legendContainer = document.querySelector('#color-legend .grid');
-    if (!legendContainer) return;
-    
-    legendContainer.innerHTML = assetTypes.map(rateData => `
-        <div class="flex items-center gap-2">
-            <div class="w-3 h-3 rounded-sm flex-shrink-0" style="background-color: ${rateData.color}"></div>
-            <span class="text-stone-600">${rateData.name}</span>
-        </div>
-    `).join('');
+// Handle commitment period changes
+function handleCommitmentChange() {
+    const selectedRadio = document.querySelector('input[name="commitment"]:checked');
+    currentDiscount = parseFloat(selectedRadio.value);
+    updateCalculations();
 }
 
-// Call this when the page loads
-createColorLegend();
-
-// What does this? ->
 function updateCalculations() {
     let grandTotal = 0;
     let totalItems = 0;
@@ -119,22 +103,35 @@ function updateCalculations() {
         if (subtotal > 0) {
             chartLabels.push(item.name);
             chartData.push(subtotal);
-            chartColors.push(item.color); // Use color from rateData
+            chartColors.push(item.color);
         }
     });
 
+    // Calculate discounted total
+    const discountedTotal = grandTotal * (1 - currentDiscount / 100);
+
     // Update Grand Total Display
-    grandTotalDisplay.innerText = grandTotal.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
+    if (currentDiscount > 0) {
+        // Show original price with strikethrough
+        originalPriceContainer.classList.remove('hidden');
+        originalTotalDisplay.innerText = grandTotal.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
+        discountBadge.innerText = `-${currentDiscount}%`;
+        grandTotalDisplay.innerText = discountedTotal.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
+    } else {
+        // Hide original price, show regular price
+        originalPriceContainer.classList.add('hidden');
+        grandTotalDisplay.innerText = grandTotal.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
+    }
+    
     totalItemsDisplay.innerText = totalItems;
 
     // Update Charts
     updateCostChart(chartLabels, chartData, chartColors);
 }
 
-// What does this? ->
 // --- Chart Functions ---
 function initCharts() {
-    // 1. Donut Chart (Cost Breakdown)
+    // Donut Chart (Cost Breakdown)
     const ctxCost = document.getElementById('costBreakdownChart').getContext('2d');
     costBreakdownChart = new Chart(ctxCost, {
         type: 'doughnut',
@@ -184,56 +181,8 @@ function initCharts() {
             cutout: '65%'
         }
     });
-
-    // 2. Bar Chart (Rate Comparison)
-    const ctxRate = document.getElementById('rateComparisonChart').getContext('2d');
-
-    // Prepare data for static rate chart
-    const labels = rateData.map(d => d.name);
-    const data = rateData.map(d => d.rate);
-
-    rateComparisonChart = new Chart(ctxRate, {
-        type: 'bar',
-        data: {
-            labels: labels,
-            datasets: [{
-                label: 'Monthly Rate (CA$)',
-                data: data,
-                backgroundColor: '#d6d3d1',
-                hoverBackgroundColor: '#d97706',
-                borderRadius: 4,
-                barPercentage: 0.6
-            }]
-        },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            indexAxis: 'y', // Horizontal Bar Chart
-            scales: {
-                x: {
-                    grid: { display: false },
-                    ticks: { font: { family: "'Inter', sans-serif" } }
-                },
-                y: {
-                    grid: { display: false },
-                    ticks: { autoSkip: false, font: { family: "'Inter', sans-serif", size: 11 } }
-                }
-            },
-            plugins: {
-                legend: { display: false },
-                tooltip: {
-                    callbacks: {
-                        label: function(context) {
-                            return `CA$${context.parsed.x}`;
-                        }
-                    }
-                }
-            }
-        }
-    });
 }
 
-// What does this? ->
 function updateCostChart(labels, data, colors) {
     if (!costBreakdownChart) return;
 
@@ -253,10 +202,10 @@ function updateCostChart(labels, data, colors) {
 }
 
 function exportToPDF() {
-    const element = document.body; // or document.getElementById('your-content-id')
+    const element = document.body;
     const opt = {
         margin: 0.5,
-        filename: 'estimate.pdf',
+        filename: 'msa-estimate.pdf',
         image: { type: 'jpeg', quality: 0.98 },
         html2canvas: { scale: 2 },
         jsPDF: { unit: 'in', format: 'letter', orientation: 'landscape' }
