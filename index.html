@@ -3,10 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Monthly MSA Quote Generator</title>
+    <title>Monthly MSA Estimate Generator</title>
     <!-- External Libraries (CDNs) -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 
     <!-- Link to our custom external CSS file -->
     <link href="style.css" rel="stylesheet">
@@ -18,12 +19,12 @@
     <header class="bg-white shadow-sm border-b border-stone-200">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex justify-between items-center">
             <div>
-                <h1 class="text-2xl font-bold text-stone-800 tracking-tight">MSA Quote Generator</h1>
+                <h1 class="text-2xl font-bold text-stone-800 tracking-tight">MSA Estimate Generator</h1>
                 <p class="text-sm text-stone-500 mt-1">Interactive Monthly Cost Estimator</p>
             </div>
             <div class="hidden sm:block">
-                <button onclick="window.print()" class="bg-stone-100 hover:bg-stone-200 text-stone-700 px-4 py-2 rounded-lg text-sm font-medium transition-colors">
-                    🖨️ Print Quote
+                <button onclick="exportToPDF()" class="bg-stone-100 hover:bg-stone-200 text-stone-700 px-4 py-2 rounded-lg text-sm font-medium transition-colors">
+                    📌 Save as PDF
                 </button>
             </div>
         </div>
@@ -140,7 +141,7 @@
 
     <footer class="bg-stone-100 border-t border-stone-200 mt-auto">
         <div class="max-w-7xl mx-auto px-4 py-6 text-center text-stone-500 text-sm">
-            <p>&copy; 2026 MSA Quote Generator. All rates are in Canadian Dollars (CA$).</p>
+            <p>&copy; 2026 MSA Estimate Generator. All rates are in Canadian Dollars (CA$).</p>
         </div>
     </footer>
 
