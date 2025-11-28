@@ -1,14 +1,14 @@
 // --- Data Model ---
 const rateData = [
-    { id: 'workstation', name: 'Workstation', rate: 55, qty: 0, icon: '💻' },
-    { id: 'small_device', name: 'Small Device', rate: 15, qty: 0, icon: '☎️' },
-    { id: 'medium_device', name: 'Medium Device', rate: 35, qty: 0, icon: '🖨️' },
-    { id: 'large_device', name: 'Large Device', rate: 80, qty: 0, icon: '🌐' },
-    { id: 'server_hw', name: 'Server Hardware', rate: 130, qty: 0, icon: '🔧' },
-    { id: 'server_sw', name: 'Server Software', rate: 130, qty: 0, icon: '⚙️' },
-    { id: 'critical_device', name: 'Critical Device', rate: 90, qty: 0, icon: '🚨' },
-    { id: 'crit_server_hw', name: 'Critical Server Hardware', rate: 175, qty: 0, icon: '🚨' },
-    { id: 'crit_server_sw', name: 'Critical Server Software', rate: 175, qty: 0, icon: '🚨' }
+    { id: 'workstation', name: 'Workstation', rate: 55, qty: 0, icon: '💻', color: '#44403c' },
+    { id: 'small_device', name: 'Small Device', rate: 15, qty: 0, icon: '☎️', color: '#57534e' },
+    { id: 'medium_device', name: 'Medium Device', rate: 35, qty: 0, icon: '🖨️', color: '#78716c' },
+    { id: 'large_device', name: 'Large Device', rate: 80, qty: 0, icon: '🌐', color: '#a8a29e' },
+    { id: 'server_hw', name: 'Server Hardware', rate: 130, qty: 0, icon: '🔧', color: '#d6d3d1' },
+    { id: 'server_sw', name: 'Server Software', rate: 130, qty: 0, icon: '⚙️', color: '#e7e5e4' },
+    { id: 'critical_device', name: 'Critical Device', rate: 90, qty: 0, icon: '🚨', color: '#ef4444' },
+    { id: 'crit_server_hw', name: 'Critical Server Hardware', rate: 175, qty: 0, icon: '🚨', color: '#dc2626' },
+    { id: 'crit_server_sw', name: 'Critical Server Software', rate: 175, qty: 0, icon: '🚨', color: '#b91c1c' }
 ];
 
 // --- DOM Elements --- -> JS will populate those
@@ -82,6 +82,23 @@ function handleInputChange(inputElement) {
     updateCalculations();
 }
 
+
+// Function to create color legend
+function createColorLegend() {
+    const legendContainer = document.querySelector('#color-legend .grid');
+    if (!legendContainer) return;
+    
+    legendContainer.innerHTML = assetTypes.map(rateData => `
+        <div class="flex items-center gap-2">
+            <div class="w-3 h-3 rounded-sm flex-shrink-0" style="background-color: ${rateData.color}"></div>
+            <span class="text-stone-600">${rateData.name}</span>
+        </div>
+    `).join('');
+}
+
+// Call this when the page loads
+createColorLegend();
+
 // What does this? ->
 function updateCalculations() {
     let grandTotal = 0;
@@ -89,13 +106,6 @@ function updateCalculations() {
     const chartLabels = [];
     const chartData = [];
     const chartColors = [];
-
-    // Base colors for chart
-    const colors = [
-        '#78716c', '#a8a29e', '#d6d3d1', // Stone shades
-        '#f59e0b', '#d97706', '#b45309', // Amber shades
-        '#3b82f6', '#2563eb', '#1d4ed8'  // Blue shades for servers
-    ];
 
     rateData.forEach((item, index) => {
         const subtotal = item.rate * item.qty;
@@ -109,7 +119,7 @@ function updateCalculations() {
         if (subtotal > 0) {
             chartLabels.push(item.name);
             chartData.push(subtotal);
-            chartColors.push(colors[index % colors.length]);
+            chartColors.push(item.color); // Use color from rateData
         }
     });
 
