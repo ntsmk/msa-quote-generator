@@ -30,14 +30,14 @@ Deployed on **Vercel**, chosen for its simplicity, fast deployment, and zero bac
 
 ## Future Enhancements
 
-1. **PDF Quote Export**  
-   Allow users to download a professional quote PDF for clients.
+1. **Convert to Next.js/React**  
+   More sophisticated UI/UX.
 
-2. **Supabase Backend**  
-   Store generated quotes, customers, pricing history, and asset configurations.
-
-3. **Login / Authentication**  
+2. **Login / Authentication**  
    Restrict tool access to internal staff and maintain user account–based data.
+
+3. **Supabase Backend**  
+   Store generated quotes, customers, pricing history, and asset configurations.
 
 ## Screenshot
 <img src="screenshot.jpg" alt="Alt text" width="800"/>
