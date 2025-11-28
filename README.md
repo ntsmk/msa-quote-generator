@@ -1,4 +1,37 @@
-﻿# msa-quote-generator
+# MSA Quote Generator
 
- One of the internal tools I have created for the current IT support company.
+A lightweight web tool that automatically calculates Managed Service Agreement (MSA) pricing based on the number and type of customer assets.  
+Built to simplify the quoting process for MSPs and reduce manual work.
 
+## Why I Built This
+
+In my MSP work, I noticed that coworkers were manually calculating quotes using Excel based on asset counts provided by customers.  
+While Excel works, it’s not efficient and doesn’t offer a good UI/UX experience.
+
+I wanted a simple, user-friendly tool that:
+- Calculates pricing instantly  
+- Reduces errors from manual spreadsheet work  
+- Looks clean and professional  
+- Can be accessed easily by the team
+
+So I built this browser-based MSA Quote Generator.
+
+## Tech Stack
+
+- HTML  
+- CSS  
+- JavaScript
+
+This project doesn’t require complex AI/ML processing or a large backend system, so a simple frontend app is perfect for now.
+
+## Deployment
+
+Deployed on **Vercel**, chosen for its simplicity, fast deployment, and zero backend requirements for the current version.
+
+## Future Enhancements
+
+1. **PDF Quote Export**  
+   Allow users to download a professional quote PDF for clients.
+
+2. **Supabase Backend**  
+   Store ge
