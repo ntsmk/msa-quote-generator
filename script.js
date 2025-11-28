@@ -239,3 +239,4 @@ function updateCostChart(labels, data, colors) {
     }
 
     costBreakdownChart.update();
+}
