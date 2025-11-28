@@ -39,3 +39,6 @@ Deployed on **Vercel**, chosen for its simplicity, fast deployment, and zero bac
 3. **Login / Authentication**  
    Restrict tool access to internal staff and maintain user account–based data.
 
+## Screenshot
+<img src="screenshot.jpg" alt="Alt text" width="800"/>
+
