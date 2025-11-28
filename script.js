@@ -11,12 +11,12 @@ const rateData = [
     { id: 'crit_server_sw', name: 'Critical Server Software', rate: 175, qty: 0, icon: '🚨', color: '#b91c1c' }
 ];
 
-// --- DOM Elements --- -> JS will populate those
-const inputContainer = document.getElementById('input-container');
+// --- DOM Elements --- 
+const inputContainer = document.getElementById('input-container'); // it is container, becasue of several fields
 const grandTotalDisplay = document.getElementById('grand-total-display');
 const totalItemsDisplay = document.getElementById('total-items-display');
 const originalTotalDisplay = document.getElementById('original-total-display');
-const originalPriceContainer = document.getElementById('original-price-container');
+const originalPriceContainer = document.getElementById('original-price-container'); // it is container, because of the strike-through styling
 const discountBadge = document.getElementById('discount-badge');
 
 // --- State ---
