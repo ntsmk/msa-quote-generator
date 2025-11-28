@@ -4,8 +4,8 @@ const rateData = [
     { id: 'small_device', name: 'Small Device', rate: 15, qty: 0, icon: '☎️', color: '#57534e' },
     { id: 'medium_device', name: 'Medium Device', rate: 35, qty: 0, icon: '🖨️', color: '#78716c' },
     { id: 'large_device', name: 'Large Device', rate: 80, qty: 0, icon: '🌐', color: '#a8a29e' },
-    { id: 'server_hw', name: 'Server Hardware', rate: 130, qty: 0, icon: '🔧', color: '#d6d3d1' },
-    { id: 'server_sw', name: 'Server Software', rate: 130, qty: 0, icon: '⚙️', color: '#e7e5e4' },
+    { id: 'server_hw', name: 'Server Hardware', rate: 130, qty: 0, icon: '🔧', color: '#0a0063ff' },
+    { id: 'server_sw', name: 'Server Software', rate: 130, qty: 0, icon: '⚙️', color: '#3744fdff' },
     { id: 'critical_device', name: 'Critical Device', rate: 90, qty: 0, icon: '🚨', color: '#ef4444' },
     { id: 'crit_server_hw', name: 'Critical Server Hardware', rate: 175, qty: 0, icon: '🚨', color: '#dc2626' },
     { id: 'crit_server_sw', name: 'Critical Server Software', rate: 175, qty: 0, icon: '🚨', color: '#b91c1c' }
