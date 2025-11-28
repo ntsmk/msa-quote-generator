@@ -1,14 +1,14 @@
 // --- Data Model ---
 const rateData = [
     { id: 'workstation', name: 'Workstation', rate: 55, qty: 0, icon: '💻' },
-    { id: 'small_device', name: 'Small Device', rate: 15, qty: 0, icon: '📱' },
-    { id: 'medium_device', name: 'Medium Device', rate: 35, qty: 0, icon: '📠' },
-    { id: 'large_device', name: 'Large Device', rate: 80, qty: 0, icon: '🖥️' },
+    { id: 'small_device', name: 'Small Device', rate: 15, qty: 0, icon: '📞' },
+    { id: 'medium_device', name: 'Medium Device', rate: 35, qty: 0, icon: '🖨️' },
+    { id: 'large_device', name: 'Large Device', rate: 80, qty: 0, icon: '🌐' },
+    { id: 'server_hw', name: 'Server Hardware', rate: 130, qty: 0, icon: '🔧' },
+    { id: 'server_sw', name: 'Server Software', rate: 130, qty: 0, icon: '⚙️' },
     { id: 'critical_device', name: 'Critical Device', rate: 90, qty: 0, icon: '🚨' },
-    { id: 'server_hw', name: 'Server Hardware', rate: 130, qty: 0, icon: '🗄️' },
-    { id: 'server_sw', name: 'Server Software', rate: 130, qty: 0, icon: '💿' },
-    { id: 'crit_server_hw', name: 'Critical Server Hardware', rate: 175, qty: 0, icon: '🏗️' },
-    { id: 'crit_server_sw', name: 'Critical Server Software', rate: 175, qty: 0, icon: '💾' }
+    { id: 'crit_server_hw', name: 'Critical Server Hardware', rate: 175, qty: 0, icon: '🚨' },
+    { id: 'crit_server_sw', name: 'Critical Server Software', rate: 175, qty: 0, icon: '🚨' }
 ];
 
 // --- DOM Elements --- -> JS will populate those
