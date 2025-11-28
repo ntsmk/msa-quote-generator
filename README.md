@@ -34,4 +34,8 @@ Deployed on **Vercel**, chosen for its simplicity, fast deployment, and zero bac
    Allow users to download a professional quote PDF for clients.
 
 2. **Supabase Backend**  
-   Store ge
+   Store generated quotes, customers, pricing history, and asset configurations.
+
+3. **Login / Authentication**  
+   Restrict tool access to internal staff and maintain user account–based data.
+
