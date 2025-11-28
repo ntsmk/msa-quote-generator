@@ -11,7 +11,7 @@ const rateData = [
     { id: 'crit_server_sw', name: 'Critical Server Software', rate: 175, qty: 0, icon: '💾' }
 ];
 
-// --- DOM Elements ---
+// --- DOM Elements --- -> JS will populate those
 const inputContainer = document.getElementById('input-container');
 const rateTableBody = document.getElementById('rate-table-body');
 const grandTotalDisplay = document.getElementById('grand-total-display');
@@ -28,6 +28,7 @@ document.addEventListener('DOMContentLoaded', () => {
     updateCalculations();
 });
 
+// What does this? ->
 // --- UI Generation Functions ---
 function initUI() {
     // Generate Input Rows
@@ -65,6 +66,7 @@ function initUI() {
     });
 }
 
+// What does this? ->
 // --- Interaction Logic ---
 function handleInputChange(inputElement) {
     const index = inputElement.dataset.index;
@@ -80,6 +82,7 @@ function handleInputChange(inputElement) {
     updateCalculations();
 }
 
+// What does this? ->
 function updateCalculations() {
     let grandTotal = 0;
     let totalItems = 0;
@@ -118,6 +121,7 @@ function updateCalculations() {
     updateCostChart(chartLabels, chartData, chartColors);
 }
 
+// What does this? ->
 // --- Chart Functions ---
 function initCharts() {
     // 1. Donut Chart (Cost Breakdown)
@@ -219,6 +223,7 @@ function initCharts() {
     });
 }
 
+// What does this? ->
 function updateCostChart(labels, data, colors) {
     if (!costBreakdownChart) return;
 
