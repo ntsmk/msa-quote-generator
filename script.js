@@ -27,10 +27,11 @@ let costBreakdownChart = null;
 let rateComparisonChart = null;
 
 // --- Initialization ---
+// After DOM content load, do run 3 functions.
 document.addEventListener('DOMContentLoaded', () => {
-    initUI();
-    initCharts();
-    updateCalculations();
+    initUI(); // set up buttons, event listeners, inputs
+    initCharts(); // set up pie chart
+    updateCalculations(); // calcurating totals in realtime
 });
 
 // --- UI Generation Functions ---
