@@ -34,8 +34,21 @@ document.addEventListener('DOMContentLoaded', () => {
     updateCalculations(); // sync everything + show correct values
 });
 
+// --- For Save as PDF button ---
+function exportToPDF() {
+    const element = document.body; // capturing inside of <body> tag
+    const opt = {
+        margin: 0.5,
+        filename: 'msa-estimate.pdf',
+        image: { type: 'jpeg', quality: 0.98 }, // html2pdf internally converts the DOM (HTML) → to a canvas screenshot, it is stored as jpeg
+        html2canvas: { scale: 2 }, // Avoids blurry text in PDF by making it sharper
+        jsPDF: { unit: 'in', format: 'letter', orientation: 'landscape' }
+    };
+    html2pdf().set(opt).from(element).save();
+}
+
 // --- UI Generation Functions ---
-// It runs after 'DOMContentLoaded'
+// It runs after 'DOMContentLoaded' - 1
 function initUI() {
     // Generate Input Rows
     rateData.forEach((item, index) => {
@@ -86,7 +99,7 @@ function handleCommitmentChange() {
     updateCalculations();
 }
 
-// It runs after 'DOMContentLoaded'
+// It runs after 'DOMContentLoaded' - 3
 function updateCalculations() {
     let grandTotal = 0;
     let totalItems = 0;
@@ -133,7 +146,7 @@ function updateCalculations() {
 }
 
 // --- Chart Functions ---
-// It runs after 'DOMContentLoaded'
+// It runs after 'DOMContentLoaded' - 2 
 function initCharts() {
     // Donut Chart (Cost Breakdown)
     const ctxCost = document.getElementById('costBreakdownChart').getContext('2d');
@@ -205,14 +218,3 @@ function updateCostChart(labels, data, colors) {
     costBreakdownChart.update();
 }
 
-function exportToPDF() {
-    const element = document.body;
-    const opt = {
-        margin: 0.5,
-        filename: 'msa-estimate.pdf',
-        image: { type: 'jpeg', quality: 0.98 },
-        html2canvas: { scale: 2 },
-        jsPDF: { unit: 'in', format: 'letter', orientation: 'landscape' }
-    };
-    html2pdf().set(opt).from(element).save();
-}
