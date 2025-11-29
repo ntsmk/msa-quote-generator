@@ -31,7 +31,7 @@ let rateComparisonChart = null;
 document.addEventListener('DOMContentLoaded', () => {
     initUI(); // set up buttons, event listeners, inputs
     initCharts(); // set up pie chart
-    updateCalculations(); // calcurating totals in realtime
+    updateCalculations(); // calcurate totals in realtime based on the quantity 
 });
 
 // --- UI Generation Functions ---
