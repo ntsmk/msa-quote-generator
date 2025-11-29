@@ -10,7 +10,7 @@ It’s not efficient and doesn’t offer a good UI/UX experience.
 
 I wanted a simple, user-friendly tool that:
 - Calculates pricing instantly  
-- Reduces errors from manual spreadsheet work  
+- Reduces errors from manual work  
 - Looks clean and professional  
 - Can be accessed easily by the team
 
@@ -41,6 +41,7 @@ Deployed on **Vercel**, chosen for its simplicity, fast deployment, and zero bac
 
 ## Screenshot
 <img src="screenshot.jpg" alt="Alt text" width="800"/>
+
 
 
 
