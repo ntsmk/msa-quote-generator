@@ -38,7 +38,7 @@ document.addEventListener('DOMContentLoaded', () => {
 function exportToPDF() {
     const element = document.body; // capturing inside of <body> tag
     const opt = {
-        margin: 0.5,
+        margin: 0.2,
         filename: 'msa-estimate.pdf',
         image: { type: 'jpeg', quality: 0.98 }, // html2pdf internally converts the DOM (HTML) → to a canvas screenshot, it is stored as jpeg
         html2canvas: { scale: 2 }, // Avoids blurry text in PDF by making it sharper
