@@ -30,7 +30,7 @@ Deployed on **Vercel**, chosen for its simplicity, fast deployment, and zero bac
 
 ## Future Enhancements
 
-1. **Convert to Next.js/React**  
+1. **Convert to React**  
    More sophisticated UI/UX.
 
 2. **Login / Authentication**  
@@ -41,4 +41,5 @@ Deployed on **Vercel**, chosen for its simplicity, fast deployment, and zero bac
 
 ## Screenshot
 <img src="screenshot.jpg" alt="Alt text" width="800"/>
+
 
