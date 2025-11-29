@@ -5,8 +5,8 @@ Built to simplify the quoting process for MSPs and reduce manual work.
 
 ## Why I Built This
 
-In my MSP work, I noticed that coworkers were manually calculating quotes using Excel based on asset counts provided by customers.  
-While Excel works, it’s not efficient and doesn’t offer a good UI/UX experience.
+In my MSP work, I noticed that coworkers were manually calculating quotes based on asset counts provided by customers.  
+It’s not efficient and doesn’t offer a good UI/UX experience.
 
 I wanted a simple, user-friendly tool that:
 - Calculates pricing instantly  
@@ -41,5 +41,6 @@ Deployed on **Vercel**, chosen for its simplicity, fast deployment, and zero bac
 
 ## Screenshot
 <img src="screenshot.jpg" alt="Alt text" width="800"/>
+
 
 
