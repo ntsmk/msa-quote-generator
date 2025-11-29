@@ -31,10 +31,11 @@ let rateComparisonChart = null;
 document.addEventListener('DOMContentLoaded', () => {
     initUI(); // set up buttons, event listeners, inputs
     initCharts(); // set up pie chart
-    updateCalculations(); // calcurate totals in realtime based on the quantity 
+    updateCalculations(); // sync everything + show correct values
 });
 
 // --- UI Generation Functions ---
+// It runs after 'DOMContentLoaded'
 function initUI() {
     // Generate Input Rows
     rateData.forEach((item, index) => {
@@ -85,6 +86,7 @@ function handleCommitmentChange() {
     updateCalculations();
 }
 
+// It runs after 'DOMContentLoaded'
 function updateCalculations() {
     let grandTotal = 0;
     let totalItems = 0;
@@ -131,6 +133,7 @@ function updateCalculations() {
 }
 
 // --- Chart Functions ---
+// It runs after 'DOMContentLoaded'
 function initCharts() {
     // Donut Chart (Cost Breakdown)
     const ctxCost = document.getElementById('costBreakdownChart').getContext('2d');
