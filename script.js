@@ -149,9 +149,9 @@ function updateCalculations() {
 // It runs after 'DOMContentLoaded' - 2 
 function initCharts() {
     // Donut Chart (Cost Breakdown)
-    const ctxCost = document.getElementById('costBreakdownChart').getContext('2d');
-    costBreakdownChart = new Chart(ctxCost, {
-        type: 'doughnut',
+    const ctxCost = document.getElementById('costBreakdownChart').getContext('2d'); // .getContext('2d') tells Chart.js to draw a 2D chart on it, need to do this before creating chart
+    costBreakdownChart = new Chart(ctxCost, { // creating chart object
+        type: 'doughnut', // declaring donuts type chart
         data: {
             labels: [],
             datasets: [{
