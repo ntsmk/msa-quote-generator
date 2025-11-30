@@ -5,12 +5,12 @@ Built to simplify the quoting process for MSPs and reduce manual work.
 
 ## Why I Built This
 
-In my MSP work, I noticed that coworkers were manually calculating quotes using Excel based on asset counts provided by customers.  
-While Excel works, it’s not efficient and doesn’t offer a good UI/UX experience.
+In my MSP work, I noticed that coworkers were manually calculating quotes based on asset counts provided by customers.  
+It’s not efficient and doesn’t offer a good UI/UX experience.
 
 I wanted a simple, user-friendly tool that:
 - Calculates pricing instantly  
-- Reduces errors from manual spreadsheet work  
+- Reduces errors from manual work  
 - Looks clean and professional  
 - Can be accessed easily by the team
 
@@ -30,7 +30,7 @@ Deployed on **Vercel**, chosen for its simplicity, fast deployment, and zero bac
 
 ## Future Enhancements
 
-1. **Convert to Next.js/React**  
+1. **Convert to React**  
    More sophisticated UI/UX.
 
 2. **Login / Authentication**  
@@ -41,4 +41,7 @@ Deployed on **Vercel**, chosen for its simplicity, fast deployment, and zero bac
 
 ## Screenshot
 <img src="screenshot.jpg" alt="Alt text" width="800"/>
+
+
+
 
