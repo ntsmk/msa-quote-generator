@@ -164,8 +164,8 @@ function initCharts() {
         options: {
             responsive: true,
             maintainAspectRatio: false,
-            plugins: {
-                legend: {
+            plugins: { // Chart.js lets you customize UI using "plugins"
+                legend: { // Where legend goes, label config
                     position: 'bottom',
                     labels: {
                         usePointStyle: true,
@@ -173,7 +173,7 @@ function initCharts() {
                         font: { family: "'Inter', sans-serif", size: 11 }
                     }
                 },
-                tooltip: {
+                tooltip: { // generating label name + price for the popup when you hover a slice.
                     callbacks: {
                         label: function(context) {
                             let label = context.label || '';
