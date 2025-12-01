@@ -187,7 +187,7 @@ function initCharts() {
                         }
                     }
                 },
-                title: {
+                title: { // These are obvious config
                     display: true,
                     text: 'Monthly Cost by Asset Type',
                     padding: { bottom: 20 },
