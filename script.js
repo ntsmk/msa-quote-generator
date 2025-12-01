@@ -152,13 +152,13 @@ function initCharts() {
     const ctxCost = document.getElementById('costBreakdownChart').getContext('2d'); // .getContext('2d') tells Chart.js to draw a 2D chart on it, need to do this before creating chart
     costBreakdownChart = new Chart(ctxCost, { // creating chart object
         type: 'doughnut', // declaring donuts type chart
-        data: {
+        data: { // initializing the empty dataset, the actual dataset will be updated by running updateCostChart()
             labels: [],
             datasets: [{
                 data: [],
                 backgroundColor: [],
                 borderWidth: 0,
-                hoverOffset: 4
+                hoverOffset: 4 // slice moves 4 pixels outward from the center. It is not obvious but slightly hovers
             }]
         },
         options: {
