@@ -195,7 +195,7 @@ function initCharts() {
                     color: '#78716c'
                 }
             },
-            cutout: '65%'
+            cutout: '65%' // Donut hole size
         }
     });
 }
