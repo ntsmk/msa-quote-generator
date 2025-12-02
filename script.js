@@ -101,6 +101,7 @@ function handleCommitmentChange() {
 
 // It runs after 'DOMContentLoaded' - 3
 function updateCalculations() {
+    // Declaring variables, it is accessible from only inside
     let grandTotal = 0;
     let totalItems = 0;
     const chartLabels = [];
