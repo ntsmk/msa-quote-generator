@@ -128,13 +128,13 @@ function updateCalculations() {
     const discountedTotal = grandTotal * (1 - currentDiscount / 100);
 
     // Update Grand Total Display
-    if (currentDiscount > 0) {
+    if (currentDiscount > 0) { // when discounts exist
         // Show original price with strikethrough
         originalPriceContainer.classList.remove('hidden');
-        originalTotalDisplay.innerText = grandTotal.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
+        originalTotalDisplay.innerText = grandTotal.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2}); // Example: 1234.5 → "1,234.50"
         discountBadge.innerText = `-${currentDiscount}%`;
-        grandTotalDisplay.innerText = discountedTotal.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
-    } else {
+        grandTotalDisplay.innerText = discountedTotal.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2}); // converting the number for dicounted ammount
+    } else { // when no discounts exist
         // Hide original price, show regular price
         originalPriceContainer.classList.add('hidden');
         grandTotalDisplay.innerText = grandTotal.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
@@ -143,7 +143,7 @@ function updateCalculations() {
     totalItemsDisplay.innerText = totalItems;
 
     // Update Charts
-    updateCostChart(chartLabels, chartData, chartColors);
+    updateCostChart(chartLabels, chartData, chartColors); // running this function by passing 3 lists the data added
 }
 
 // --- Chart Functions ---
