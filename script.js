@@ -108,8 +108,8 @@ function updateCalculations() {
     const chartData = [];
     const chartColors = [];
 
-    rateData.forEach((item, index) => {
-        const subtotal = item.rate * item.qty;
+    rateData.forEach((item, index) => { // run for loop first, and then do the transaction below. item = workstation, index = 0
+        const subtotal = item.rate * item.qty; // just calcurate for each item's number
         grandTotal += subtotal;
         totalItems += item.qty;
 
