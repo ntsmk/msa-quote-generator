@@ -118,7 +118,7 @@ function updateCalculations() {
 
         // Prepare Chart Data (only include items with cost > 0)
         if (subtotal > 0) {
-            chartLabels.push(item.name);
+            chartLabels.push(item.name); //.push is .append in python. Adding the data into the list
             chartData.push(subtotal);
             chartColors.push(item.color);
         }
