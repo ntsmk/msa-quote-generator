@@ -94,7 +94,7 @@ function handleInputChange(inputElement) {
 }
 
 // Handle commitment period changes
-function handleCommitmentChange() {
+function handleCommitmentChange() { // this does not need parameter becasue it is called directly from html onchange="handleCommitmentChange()"
     const selectedRadio = document.querySelector('input[name="commitment"]:checked');
     currentDiscount = parseFloat(selectedRadio.value); // getting discount percent already set in html side
     updateCalculations();
