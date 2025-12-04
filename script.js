@@ -79,7 +79,7 @@ function initUI() {
 
 // TODO comprehend here
 // --- Interaction Logic ---
-function handleInputChange(inputElement) {
+function handleInputChange(inputElement) { // it is not called directly from html, that is why passing inputElement
     const index = inputElement.dataset.index;
     let val = parseInt(inputElement.value);
 
