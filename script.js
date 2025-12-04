@@ -202,20 +202,20 @@ function initCharts() {
 }
 
 function updateCostChart(labels, data, colors) {
-    if (!costBreakdownChart) return;
+    if (!costBreakdownChart) return; // if the variable is null, undefined, or otherwise not yet created then this function stops here
 
-    // Update data
+    // Update data with data passed 
     costBreakdownChart.data.labels = labels;
     costBreakdownChart.data.datasets[0].data = data;
     costBreakdownChart.data.datasets[0].backgroundColor = colors;
 
     // Update chart title based on data presence
-    if (data.length === 0) {
+    if (data.length === 0) { // Why === instead of == -> because if == then "0" will be allowed instead of 0, it is more safer
          costBreakdownChart.options.plugins.title.text = 'Enter quantities to see breakdown';
     } else {
          costBreakdownChart.options.plugins.title.text = 'Monthly Cost by Asset Type';
     }
 
-    costBreakdownChart.update();
+    costBreakdownChart.update(); // built-in function from Chart.js
 }
 
