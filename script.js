@@ -77,6 +77,7 @@ function initUI() {
     });
 }
 
+// TODO comprehend here
 // --- Interaction Logic ---
 function handleInputChange(inputElement) {
     const index = inputElement.dataset.index;
