@@ -77,7 +77,6 @@ function initUI() {
     });
 }
 
-// TODO comprehend here
 // --- Interaction Logic ---
 function handleInputChange(inputElement) { // it is not called directly from html, that is why passing inputElement
     // but it is called hardcoded html in function initUI(). That means once the page is loaded, along with creating item rows. Each rows has this function.
@@ -86,8 +85,9 @@ function handleInputChange(inputElement) { // it is not called directly from htm
     let val = parseInt(inputElement.value);  // entered value
 
     // Validate input
-    if (isNaN(val) || val < 0) val = 0; // NaN = user deletes the value. (empty etring) NaN stands for "Not-a-Number.
-    // a form of defensive programming.
+    if (isNaN(val) || val < 0) val = 0; // NaN = user deletes the value. (empty etring) NaN stands for "Not-a-Number. || means OR.
+    // a form of defensive programming. Preventing invalid input.
+    // so this means if val is not number or less than 0 which is invalid either way. just re entering val as 0. That is why this is preventive strategy.
 
     // Update Data Model
     rateData[index].qty = val; // updating the inside of array value for entered value
