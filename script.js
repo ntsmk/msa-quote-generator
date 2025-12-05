@@ -87,9 +87,11 @@ function handleInputChange(inputElement) { // it is not called directly from htm
 
     // Validate input
     if (isNaN(val) || val < 0) val = 0; // NaN = user deletes the value. (empty etring) NaN stands for "Not-a-Number.
+    // a form of defensive programming.
 
     // Update Data Model
     rateData[index].qty = val; // updating the inside of array value for entered value
+    // but rateData is declared as const, why changeable? -> const wont allow you to change whole box entirely but modifying inside of array is fine
 
     // Update UI
     updateCalculations();
