@@ -80,8 +80,10 @@ function initUI() {
 // TODO comprehend here
 // --- Interaction Logic ---
 function handleInputChange(inputElement) { // it is not called directly from html, that is why passing inputElement
+    // but it is called hardcoded html in function initUI(). That means once the page is loaded, along with creating item rows. Each rows has this function.
+    // onchange="handleInputChange(this)" oninput="handleInputChange(this)" -> this means in this case, the <input> element. <input type="number" min="0" value="0" data-index="${index}", the number user typed.
     const index = inputElement.dataset.index;
-    let val = parseInt(inputElement.value);
+    let val = parseInt(inputElement.value); // NaN = user deletes the value. (empty etring) NaN stands for "Not-a-Number.
 
     // Validate input
     if (isNaN(val) || val < 0) val = 0;
