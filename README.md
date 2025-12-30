@@ -3,6 +3,9 @@
 A lightweight web tool that automatically calculates Managed Service Agreement (MSA) pricing based on the number and type of customer assets.  
 Built to simplify the quoting process for MSPs and reduce manual work.
 
+## Screenshot
+<img src="screenshot.jpg" alt="Alt text" width="800"/>
+
 ## Why I Built This
 
 In my MSP work, I noticed that coworkers were manually calculating quotes based on asset counts provided by customers.  
@@ -38,9 +41,6 @@ Deployed on **Vercel**, chosen for its simplicity, fast deployment, and zero bac
 
 3. **Supabase Backend**  
    Store generated quotes, customers, pricing history, and asset configurations.
-
-## Screenshot
-<img src="screenshot.jpg" alt="Alt text" width="800"/>
 
 
 
