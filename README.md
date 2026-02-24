@@ -32,7 +32,7 @@ This project doesn’t require complex AI/ML processing or a large backend syste
 
 ## Deployment
 
-Deployed on **Vercel**, chosen for its simplicity, fast deployment, and zero backend requirements for the current version.
+Deployed on GitHub Pages, chosen for its simplicity, fast deployment, and zero backend requirements for the current version.
 
 ## Future Enhancements
 
@@ -44,6 +44,7 @@ Deployed on **Vercel**, chosen for its simplicity, fast deployment, and zero bac
 
 3. **Supabase Backend**  
    Store generated quotes, customers, pricing history, and asset configurations.
+
 
 
 
