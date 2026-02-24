@@ -3,6 +3,9 @@
 A lightweight web tool that automatically calculates Managed Service Agreement (MSA) pricing based on the number and type of customer assets.  
 Built to simplify the quoting process for MSPs and reduce manual work.
 
+## Live Demo
+https://ntsmk.github.io/msa-quote-generator/
+
 ## Screenshot
 <img src="screenshot.jpg" alt="Alt text" width="800"/>
 
@@ -41,6 +44,7 @@ Deployed on **Vercel**, chosen for its simplicity, fast deployment, and zero bac
 
 3. **Supabase Backend**  
    Store generated quotes, customers, pricing history, and asset configurations.
+
 
 
 
